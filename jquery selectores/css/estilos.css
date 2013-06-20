@@ -1,0 +1,26 @@
+p{
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+#box, #box2, #box3{
+	background: red;
+	border-radius: 10px;
+	box-shadow: 2px 2px 2px black; 
+	height: 200px;
+	margin: 0 auto;
+	width: 50%;
+}
+#box2{
+	background: blue;
+}
+#box3{
+	background: gray;
+	height: 500px;
+}
+.convertirestilo{
+	font-style: italic;
+	color: white;
+}
