@@ -1,0 +1,10 @@
+#box_1, #box_3, #box_4{
+	background: red;
+	height: 150px;
+	width: 300px;
+}
+#box_2{
+	border: 1px dotted black;
+	height: 150px;
+	width: 300px;
+}
