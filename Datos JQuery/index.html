@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/estilos.css">
+	</head>
+	<body>
+		<h3>Load Ajax en jQuery</h3>
+		<ul>
+			<li><a href="php/colores.php?color=azul">Cuentame algo del color azul</a></li>
+			<li><a href="php/colores.php?color=rojo">Cuentame algo del color rojo</a></li>
+			<li><a href="php/colores.php?color=amarillo">Cuentame algo del color amarillo</a></li>
+		</ul>
+		<div id="salida"></div>
+
+		<h3>GET y POST con jQuery</h3>
+		<h4>Tabla de Multiplicar del 5</h4>
+		<h4>Ingrese un numero para multiplicar:</h4>
+		<form id="formularioCalculadora" method="POST">
+			<input type="text" id="campoNumero" name="numerovariable">
+			<input type="submit" id="enviar" value="Enviar">
+		</form>
+
+		<div id="resultado"></div>
+
+		<h3>Ajax con jQuery</h3>
+		<h4>Ingresa un año y obtiene el siguiente</h4>
+
+		<input type="text" name="ano" id="numeroano">
+		<input type="submit" id="enviar_2" value="Enviar">
+
+		<div id="resultado_2"></div>
+
+	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+
+	</body>
+</html>
