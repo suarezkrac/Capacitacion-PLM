@@ -1,0 +1,27 @@
+#listas ul{
+	list-style-type: none;
+}
+
+#listas li{
+	border: 2px solid black;
+	height: 30px;
+	width: 200px;
+}
+
+#listas ul .ui-selecting{
+	background: red; 
+	color: white;
+}
+#listas ul .ui-selected{
+	background: blue;
+	color: white;
+}
+.video{
+	height: 350px;
+	width: 100%;
+}
+.boxes{
+	background: red;
+	height: 100px;
+	width: 100px;
+}

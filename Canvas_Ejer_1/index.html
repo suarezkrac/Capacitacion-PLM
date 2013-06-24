@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#miCanvas{
+			border: 1px solid black;
+			box-shadow: 10px 10px 10px gray;
+			height: 200px;
+			width: 600px;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="miCanvas" width="600" height="200"></canvas>
+	<script type="text/javascript">
+		window.onload = function(){
+			var canvas = document.getElementById("miCanvas");
+			var contexto = canvas.getContext("2d");
+
+			//Linea
+			/*
+			contexto.beginPath();
+			contexto.moveTo(50,50);
+			contexto.lineTo(140, 50);
+			contexto.lineWidth = 10;
+			contexto.strokeStyle= "#0000FF";
+			contexto.lineCap = "butt";
+			contexto.stroke();
+
+			contexto.beginPath();
+			contexto.moveTo(50,80);
+			contexto.lineTo(140, 80);
+			contexto.lineWidth = 10;
+			contexto.strokeStyle = "#ff0000";
+			contexto.lineCap = "round";
+			contexto.stroke();
+			*/
+			//Curvas
+			/*
+			var x = 100;
+			var y = 100;
+			var radio = 70;
+			var AnguloInicial = 1 * Math.PI;
+			var AnguloFinal = 2 * Math.PI;
+			var contador = false;
+
+			contexto.beginPath();
+
+			//Curvas por metodo ARC
+			//contexto.arc(x, y, radio, AnguloInicial, AnguloFinal, contador);
+
+			//Metodo Bezier
+			//contexto.moveTo(100,120);
+			//contexto.bezierCurveTo(110,20,200,20,200,120);
+
+			//Metodo Curvas Cuadraditicas
+			contexto.moveTo(100,100);
+			contexto.quadraticCurveTo(120,0,200,100);
+
+			contexto.lineWidth = 10;
+			contexto.strokeStyle = "red";
+			contexto.stroke();*/
+
+			//Path
+			/*
+			contexto.beginPath();
+			contexto.moveTo(100,20);
+			contexto.lineTo(200, 160);
+			contexto.quadraticCurveTo(230, 200, 250, 120);
+			contexto.bezierCurveTo(290, -40, 300, 200, 400, 150);
+			contexto.lineTo(500,90);
+
+			contexto.lineWidth = 5;
+			contexto.stroke();
+*/
+			//Line Join
+
+			contexto.beginPath;
+			contexto.moveTo(99, 150);
+			contexto.lineTo(149,50);
+			contexto.lineTo(199, 150);
+			contexto.lineJoin = "round";
+			contexto.lineWidth = 25;
+
+			contexto.stroke();
+
+		}
+
+
+	</script>
+</body>
+</html>
