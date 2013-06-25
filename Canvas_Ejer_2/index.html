@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		canvas{
+			border: 1px solid black;
+			box-shadow: 10px 10px 10px gray;
+			height: 200px;
+			width: 600px;
+			margin: 5px auto;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="miCanvas" width="600" height="200"></canvas>
+	<canvas id="miCanvas_1" width="600" height="200"></canvas>
+	<canvas id="miCanvas_2" width="600" height="200"></canvas>
+	<script type="text/javascript">
+		window.onload= function(){
+			var canvas = document.getElementById("miCanvas");
+			var contexto = canvas.getContext("2d");
+
+			var Imagen = new Image();
+
+			Imagen.onload = function (){
+				var fondo = contexto.createPattern(Imagen, "repeat");
+
+				contexto.beginPath();
+				contexto.moveTo(170,80);
+				contexto.bezierCurveTo(130,100,130,150,230,150);
+				contexto.bezierCurveTo(250,180,320,180,340,150);
+				contexto.bezierCurveTo(420,150,420,120,390,100);
+				contexto.bezierCurveTo(430,40,370,30,340,50);
+				contexto.bezierCurveTo(320,5,250,20,250,50);
+				contexto.bezierCurveTo(200,5,150,20,170,80);
+
+
+				contexto.closePath();
+				contexto.lineWidth = 1;
+				contexto.fillStyle = fondo;
+				contexto.fill();
+				contexto.strokeStyle="blue";
+				contexto.stroke();
+			}
+
+			Imagen.src="nube.jpg";
+
+			var canvas2 =  document.getElementById("miCanvas_1");
+			var contexto2 = canvas2.getContext("2d");
+
+			var centroX = canvas2.width/2;
+			var centroY = canvas2.height/2;
+
+			var gradiente = contexto2.createRadialGradient(centroX, centroY, 10, centroX, centroY, 200);
+			gradiente.addColorStop(0, "orange");
+			gradiente.addColorStop(1, "red");
+
+			var radio = 80;
+
+			contexto2.beginPath();
+			contexto2.arc(centroX, centroY, radio, 0, 2*Math.PI, false);
+			contexto2.lineWidth= 3;
+			contexto2.fillStyle = gradiente;
+			contexto2.fill();
+			contexto2.strokeStyle = "blue";
+			contexto2.stroke();
+
+			var canvas3 =  document.getElementById("miCanvas_2");
+			var contexto3 = canvas3.getContext("2d");
+
+			var imagen2 = new Image();
+			imagen2.onload = function(){
+				var destWidth = 400;
+				var destHeight = 180;
+				var desX = canvas3.width/2 - destWidth/2;
+				var desY = canvas3.height/2 - destHeight/2;
+
+				//contexto3.drawImage(imagen2, 10,10,400,180);
+				contexto3.drawImage(imagen2, 10,10,400,180, desX, desY, destWidth, destHeight);
+			}
+
+			imagen2.src="darth-vader.jpg";
+
+
+
+		}
+	</script>
+</body>
+</html>
