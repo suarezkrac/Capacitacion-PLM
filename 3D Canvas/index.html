@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script type="text/javascript" src="three.min.js"></script>
+	<script defer="defer">
+
+      var angularSpeed = 0.2; 
+      var lastTime = 0;
+ 
+      function animate(){
+
+        var time = (new Date()).getTime();
+        var timeDiff = time - lastTime;
+        var angleChange = angularSpeed * timeDiff * 2 * Math.PI / 1000;
+        plane.rotation.z += angleChange;
+        lastTime = time;
+
+        renderer.render(scene, camera);
+ 
+        requestAnimationFrame(function(){
+            animate();
+        });
+      }
+
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+ 
+
+      var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+      camera.position.y = -450;
+      camera.position.z = 400;
+      camera.rotation.x = 45 * (Math.PI / 180);
+
+      var scene = new THREE.Scene();
+
+      var plane = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.MeshNormalMaterial());
+      plane.overdraw = true;
+      scene.add(plane);
+
+      animate();
+    </script>
+
+
+</body>
+</html>
