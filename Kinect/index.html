@@ -98,7 +98,7 @@
 		            strokeWidth: 1,
 		            padding: 4,
 		            text: num + ') ' + boxes[n].easing,
-		            fontSize: 18,
+		            fontSize: 15,
 		            fontFamily: 'Calibri',
 		            textFill: 'black',
 		            cornerRadius: 3
@@ -132,6 +132,13 @@
 				});
 
 			}
+		}
+
+		function reset(layer, boxes){
+			for (var n = 0; n < boxes.length; n++) {
+				boxes[n].text.setX(10);
+			};
+			layer.draw();
 		}
 	</script>
 </body>
