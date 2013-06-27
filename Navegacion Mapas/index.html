@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+	<title>Navegacion por Google Maps</title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<style type="text/css">
+		#container_panel{
+			border: 1px solid black;
+			height: 400px;
+			position: relative;
+			width: 660px;
+		}
+		#directionsPanel{
+			left: 410px;
+			height: 400px;
+			overflow: auto;
+			position: absolute;
+			width: 240px;
+		}
+		#map_canvas{
+			border: 1px solid black;
+			height: 398px;
+			position: absolute;
+			width: 398px;
+		}
+	</style>
+
+</head>
+<body onload="initialize()">
+	<table>
+		<tr>
+			<td><input type="checkbox" id="optimize" checked> Optimizar</td>
+			<td>
+				<select id="mode" onchange="updateMode()">
+					<option value="bicycling">Bicicleta</option>
+					<option value="driving">Automovil</option>
+					<option value="walking">Peaton</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" id="highways" checked> Avenidas</td>
+			<td><input type="button" value="Reset" onclick="reset()"></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" id="tolls" checked> Peajes</td>
+			<td><input type="button" value="Obtener Direcciones!" onclick="calcRoute()"> </td>
+			<td></td>
+		</tr>
+	</table>
+	<div id="container_panel">
+		<div id="map_canvas"></div>
+		<div id="directionsPanel"></div>
+	</div>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript">
+		var directionDisplay;
+		var directionsService = new google.maps.DirectionsService();
+		var map;
+		var origin = null;
+		var destination = null;
+		var waypoints = [];
+		var markers= [];
+		var directionsVisible = false;
+
+		function initialize () {
+			directionDisplay = new google.maps.DirectionsRenderer();
+			var chicago = new google.maps.LatLng(37.7749295, -122.4194155);
+			//var chicago =  new google.maps.LatLng(4.5980560001, -74.075833);
+			var myOptions = {
+				zoom : 13,
+				mapTypeId : google.maps.MapTypeId.ROADMAP,
+				center: chicago
+			};
+			map = new google.maps.Map(document.getElementById("map_canvas"), myOptions)
+
+			directionDisplay.setMap(map);
+			directionDisplay.setPanel(document.getElementById("directionsPanel"));
+
+			google.maps.event.addListener(map, 'click', function(event){
+				if(origin == null){
+					origin = event.latLng;
+					addMarker(origin);
+				}else if(destination == null){
+					destination = event.latLng;
+					addMarker(destination);
+				}else{
+					if(waypoints.length < 9){
+						waypoints.push({location: destination, stopover:true});
+						destination = event.latLng;
+						addMarker(destination);
+					}else{
+						alert("Numero maximo de puntos intermedios");
+					}
+				}
+			});
+
+		}
+
+		function addMarker(latLng){
+			markers.push(new google.maps.Marker({
+				position: latLng,
+				map: map,
+				icon: "http://maps.google.com/mapfiles/marker"+String.fromCharCode(markers.length + 65)+".png"
+			}));
+		}
+
+		function calcRoute(){
+			if(origin == null){
+				alert("Clic en el mapa para adicionar el punto de origen");
+				return;
+			}
+			if( destination == null){
+				alert("Clic en el mapa para adicionar el punto de llegada");
+				return;
+			}
+
+			var mode;
+			switch(document.getElementById("mode").value){
+				case "bicycling":
+					mode = google.maps.DirectionsTravelMode.BICYCLING;
+					break;
+				case "driving":
+					mode = google.maps.DirectionsTravelMode.DRIVING;
+					break;
+				case "walking":
+					mode = google.maps.DirectionsTravelMode.WALKING;
+					break;
+			}
+
+			var request = {
+				origin: origin,
+				destination: destination,
+				waypoints: waypoints,
+				travelMode: mode,
+				optimizeWaypoints: document.getElementById("optimize").checked,
+				avoidHighways: document.getElementById("highways").checked,
+				avoidTolls: document.getElementById('tolls').checked
+			};
+
+			directionsService.route(request, function(response, status){
+				if(status == google.maps.DirectionsStatus.OK){
+					directionDisplay.setDirections(response);
+				}
+			});
+
+			clearMarkers();
+			directionsVisible = true;
+
+		}
+
+		function clearMarkers(){
+			for(var i = 0; i < markers.length; i++){
+				markers[i].setMap(null);
+			}
+		}
+		function updateMode(){
+			if(directionsVisible){
+				calcRoute();
+			}
+		}
+
+		function reset(){
+			clearMarkers();
+			clearWaypoints();
+			directionDisplay.setMap(null);
+			directionDisplay.setPanel(null);
+			directionDisplay = new google.maps.DirectionsRenderer();
+			directionDisplay.setMap(map);
+			directionDisplay.setPanel(document.getElementById("directionsPanel"));
+		}
+
+		function clearWaypoints(){
+			markers = [];
+			origin = null;
+			destination = null;
+			waypoints = [];
+			directionsVisible = false;
+		}
+
+
+
+	</script>
+</body>
+</html>

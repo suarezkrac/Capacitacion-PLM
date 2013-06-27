@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+	<title>Marcador</title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<style type="text/css">
+		html{
+			height: 100%;
+		}
+		body{
+			height: 100%; margin:0; padding: 0;
+		}
+		#map_canvas{
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+</head>
+<body onload="initialize()">
+	<div id="map_canvas"></div>
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript">
+		var map;
+		function initialize () {
+			
+			var myLatLng = new google.maps.LatLng(4.5980560001, -74.075833);
+
+			var myOptions = {
+				zoom: 10,
+				center: myLatLng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+
+			map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+			google.maps.event.addListener(map, "zoom_changed", function(){
+				setTimeout(moveToPLM, 3000);
+			});
+
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				map: map,
+				title: "Vamos a PLM!!"
+			});
+
+			google.maps.event.addListener(marker, 'click', function(){
+				map.setZoom(18);
+			});
+		}
+
+		function moveToPLM(){
+			var PLMLatLng = new google.maps.LatLng(4.6943414, -74.0643865);
+			map.setCenter(PLMLatLng);
+		}
+
+	</script>
+</body>
+</html>
