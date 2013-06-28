@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+	<title>Local y Session Storage</title>
+</head>
+<body onload="cargar()">
+	<div id="localstoragemensaje">Suporta LocalStorage?</div>
+	<div id="sessionstoragemensaje">Suporta SessionStorage?</div>
+	<h1>Accesso Web Storage:</h1>
+	<div>Cantidad de LocalStorage: <span id ="localStorageCount"/></div>
+	<div>Cantidad de SessionStorage: <span id ="sessionStorageCount"/></div>
+	
+
+	<p>Escribe tus sugerencias y continua cuando puedas:</p>
+	
+	<form>
+		<label>Sugerencias:</label>
+		<br>
+		<textarea rows="12" cols="70" name="nombre" onblur="recordar(this.name, this.value);"></textarea>
+	</form>
+	<script type="text/javascript">
+
+	function onLoad () {
+		var mensajelocalstorage = document.getElementById("localstoragemensaje");
+		var mensajesessionstorage = document.getElementById("sessionstoragemensaje");
+		
+		if(window.localStorage){
+			mensajelocalstorage.innerHTML = "Navegador Soporta LocalStorage";
+			accederStorage(window.localStorage, "localStorageCount");
+		}else {
+			mensajelocalstorage.innerHTML = "Navegador NO Soporta LocalStorage";
+		}
+
+		if(window.sessionStorage){
+			mensajesessionstorage.innerHTML = "Navegador Soporta SessionStorage";
+			accederStorage(window.sessionStorage, "sessionStorageCount");
+		}else {
+			mensajesessionstorage.innerHTML = "Navegador NO Soporta SessionStorage";
+		}
+	}
+	function accederStorage(storageObject, spanName){
+		var spanElement = document.getElementById(spanName);
+
+		var i = storageObject.count;
+
+		if(i==undefined){
+			i = 0;
+		}
+		
+
+		spanElement.innerHTML = i;
+
+	}
+
+
+		window.addEventListener("load", onLoad, true);
+
+		function recordar(dato, valor){
+			//localStorage.setItem(dato, valor);
+			sessionStorage.setItem(dato, valor);
+		} 
+
+		function cargar (){
+			//document.forms[0].nombre.value = localStorage.getItem('nombre');
+			document.forms[0].nombre.value = sessionStorage.getItem('nombre');
+		}
+	</script>
+</body>
+</html>
