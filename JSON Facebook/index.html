@@ -1,0 +1,28 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<b id="face_1"></b><br>
+	<b id="face_2"></b>
+	<script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+	<script type="text/javascript">
+		
+		var url="https://graph.facebook.com/656307192?access_token=CAACEdEose0cBABP4eaJrkugM2cyTM3hDd6hZC3aZBx0qUwagTMepGSylFdBX8Izs4PJC3WcIuXcAFyGm3BvuEP7Pnp59bxZCg9w0OWYnTllgWDTgo5J9zR9J3ebbkwDsDpSmEj6XCvraXue9ZBjym5RmE6y9P2gZD";
+		
+		var html = new Array();
+		
+		var i= 0;
+
+		$.getJSON(url, function(json){
+
+			$('#face_1').html(json.name);
+			$('#face_2').html(json.bio);
+
+		});
+
+
+	</script>
+</body>
+
+</html>

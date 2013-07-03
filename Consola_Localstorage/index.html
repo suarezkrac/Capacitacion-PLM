@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+	<title>Consola Almacenamiento Local Storage</title>
+</head>
+<body>
+	<h1>Consola de Almacenamiento Web Storage</h1>
+	<p>Clic en los botones para manipular los elementos del almacenamiento</p>
+
+	<b>Item Nombre: </b><input type="text" id="itemNombre" size="15"><br>
+	<b>Item Valor: </b><input type="text" id="itemValor" size="15"><br>
+
+	<button id="guardar">Guardar</button> &nbsp; 
+	<button id="contar">Contar</button> &nbsp; 
+	<button id="borrar">Borrar</button> &nbsp; 
+	<button id="limpiar">Limpiar</button> &nbsp; 
+	<button id="mostrar">Mostrar</button> &nbsp; 
+
+	<br>
+	<br>
+
+	<div id="resultados"></div>
+	<script type="text/javascript">
+		function onLoad(){
+			document.getElementById("guardar").addEventListener("click", guardarItem, true);
+			document.getElementById("contar").addEventListener("click", contarItem, true);
+			document.getElementById("borrar").addEventListener("click", borrarItem, true);
+			document.getElementById("limpiar").addEventListener("click", limpiarItem, true);
+			document.getElementById("mostrar").addEventListener("click", mostrarItem, true);
+
+			adicionarValoresDefecto();
+		}
+
+		window.addEventListener("load", onLoad, true);
+
+		function adicionarValoresDefecto(){
+			window.localStorage.setItem("Nombre", "Giovanny Suarez");
+		}
+
+		function guardarItem(){
+			var itemNombre = document.getElementById("itemNombre").value;
+			var itemValor = document.getElementById("itemValor").value;
+
+			window.localStorage.setItem(itemNombre, itemValor);
+
+			alert("Guardado correcto en el local storage: Key:"+itemNombre+"-Valor:"+itemValor);
+		}
+
+		function contarItem(){
+			var count = window.localStorage.length;
+			alert("Hay :"+count+" items en el localStorage");
+		}
+
+		function borrarItem(){
+			var itemName = document.getElementById("itemNombre").value;
+			window.localStorage.removeItem(itemName);
+			alert("Borrado Exitoso!!");
+		}
+		function limpiarItem(){
+			window.localStorage.clear();
+			alert("Local Storage Limpio");
+		}
+
+		function mostrarItem(){
+			var count = window.localStorage.length;
+			var resultado ="Valores del localStorage : <br><ul>";
+			for (var i = 0; i < count; i++) {
+				var key = window.localStorage.key(i);
+				var val = window.localStorage.getItem(key);
+				resultado += "<li>"+key+" = "+val+"</li>";
+			};
+			resultado +="</ul>";
+			document.getElementById("resultados").innerHTML = resultado;
+		}
+
+
+
+
+	</script>
+</body>
+</html>

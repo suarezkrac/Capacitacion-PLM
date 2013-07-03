@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+	<title>HTML5 WebWorkers</title>
+</head>
+<body>
+	<div id="content">
+		<h1>HTML5: Web Workers</h1>
+		<p id="message"></p>
+		<div id="pageResults"></div>
+		<form onSubmit="startSearch(); return false;">
+			<p>Valor de numero: </p>
+			<input type="text" id="valor1" name="valor1">
+			<button id="botonEncontrar" onClick="startSearch();">Encontrar Numero primo mas cercano</button>
+		</form>
+
+		<p>El numero primo mas cercano de:
+			<output id="primoIncio">_</output> <p> es: </p>
+			<output id="primoResultado">_</output></p>
+	</div>
+	<script type="text/javascript">
+		function getWorkerObject () {
+			try{
+				if(!!window.Worker) return window.Worker;
+				else return undefined;
+			}catch(e){
+				return undefined;
+			}
+		}
+
+		function init(){
+			var oWorker = null;
+			if(!(oWorker = getWorkerObject())){
+				dispError("Web Worker no es soportado en este navegador");
+			}else{
+				dispMessage("Este Navegador Soporta Web Workers")
+			}
+
+			worker = new oWorker('workerFindPrime.js');
+			worker.addEventListener('message', workerCallBack, true);
+		}
+
+		function element(id){ return document.getElementById(id);}
+
+		function startSearch(){
+			var textValue = element('valor1').value;
+			var f = parseFloat(textValue);
+			var i = parseInt(textValue, 10);
+			if (f==i){var numero = f};
+			worker.postMessage({value: numero});
+			element('primoIncio').value = element('valor1').value;
+			return false;
+		}
+
+		function workerCallBack(event){
+			var value = event.data.value;
+			var error = event.data .errorMessage;
+			if(error){
+				dispError(error);
+			}else{
+				element('primoResultado').textContent = value;
+			}
+		}
+
+		function dispMessage(message){
+			m = element('message');
+			m.className = 'message';
+			if(m.textContent.length > 0){
+				m.innerHTML += '<br>' + message;
+			}else{
+				m.innerHTML = message;
+			}
+		}
+
+		function dispError(errorMessage){
+			element('pageResults').innerHTML = '<p>'+errorMessage+'</p>';
+		}
+
+		window.onload = init;
+
+
+
+	</script>
+</body>
+</html>
